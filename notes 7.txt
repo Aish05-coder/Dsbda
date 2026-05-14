@@ -1,0 +1,298 @@
+
+
+NATURAL LANGUAGE PROCESSING (NLP) NOTES
+=======================================
+
+1. Installing NLTK
+------------------
+
+Command Prompt:
+pip install nltk
+
+Jupyter Notebook:
+!pip install nltk
+
+Download required datasets:
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+
+
+2. Importing NLP Libraries
+--------------------------
+
+import nltk
+
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk import pos_tag
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+Explanation:
+- word_tokenize      : Splits text into tokens
+- stopwords          : Removes common words
+- PorterStemmer      : Performs stemming
+- WordNetLemmatizer  : Performs lemmatization
+- pos_tag            : Performs POS tagging
+- TfidfVectorizer    : Converts text into TF-IDF vectors
+
+
+
+3. Creating a Document
+----------------------
+
+document = '''
+Natural Language Processing is a branch of Artificial Intelligence.
+It helps computers understand human language.
+Text analytics is useful for extracting meaningful information from text data.
+'''
+
+print(document)
+
+
+Explanation:
+Triple quotes are used for multi-line strings.
+
+
+
+4. Tokenization
+---------------
+
+tokens = word_tokenize(document)
+
+print(tokens)
+
+
+Definition:
+Tokenization is the process of breaking text into smaller units called tokens.
+
+
+
+5. POS Tagging
+--------------
+
+pos = pos_tag(tokens)
+
+print(pos)
+
+
+Definition:
+POS tagging assigns grammatical labels such as noun, verb, adjective, etc.
+
+
+Common POS Tags:
+NN   : Noun
+NNS  : Plural Noun
+NNP  : Proper Noun
+VB   : Verb
+VBD  : Verb Past Tense
+VBZ  : Verb Present Tense
+JJ   : Adjective
+RB   : Adverb
+
+
+Extra POS Tags:
+VBG : Verb Gerund / Present Participle
+Example: running, playing
+
+VBP : Verb Present Tense
+Example: run, play
+
+
+
+6. Stop Word Removal
+--------------------
+
+stop_words = set(stopwords.words('english'))
+
+filtered_words = [
+    word for word in tokens
+    if word.lower() not in stop_words
+]
+
+print(filtered_words)
+
+
+Definition:
+Stop word removal removes commonly used words such as:
+is, the, of, are
+
+
+
+7. Stemming
+------------
+
+stemmer = PorterStemmer()
+
+stemmed_words = [
+    stemmer.stem(word)
+    for word in filtered_words
+]
+
+print(stemmed_words)
+
+
+Definition:
+Stemming reduces words to their root form.
+
+Examples:
+playing -> play
+studies -> studi
+
+
+
+8. TF-IDF Vectorization
+-----------------------
+
+documents = [
+    "Natural Language Processing is important",
+    "Artificial Intelligence and NLP are related fields",
+    "Computers can understand human language"
+]
+
+vectorizer = TfidfVectorizer()
+
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+print(vectorizer.get_feature_names_out())
+print(tfidf_matrix.toarray())
+
+
+Definition:
+TF-IDF stands for Term Frequency – Inverse Document Frequency.
+
+Formula:
+TF-IDF = TF × IDF
+
+
+
+9. Basic Concepts of Text Analytics
+-----------------------------------
+
+Text Analytics is the process of extracting meaningful information from text data.
+
+Basic Concepts:
+1. Tokenization
+2. Stop Word Removal
+3. Stemming
+4. Lemmatization
+5. POS Tagging
+6. TF-IDF
+
+
+
+10. Inverse Document Frequency (IDF)
+------------------------------------
+
+Definition:
+IDF measures how important a word is across all documents.
+
+Formula:
+IDF(t) = log(N / DF(t))
+
+Where:
+N      = Total number of documents
+DF(t)  = Number of documents containing the term
+
+
+Advantages:
+- Reduces importance of common words
+- Highlights meaningful words
+- Improves accuracy
+
+
+
+11. Stemming vs Lemmatization
+-----------------------------
+
+Code:
+
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+
+words = ["studies", "studying", "cries", "cry"]
+
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(word) for word in words]
+
+lemmatizer = WordNetLemmatizer()
+lemmatized = [lemmatizer.lemmatize(word) for word in words]
+
+print(stemmed)
+print(lemmatized)
+
+
+Output:
+
+Stemming:
+['studi', 'studi', 'cri', 'cri']
+
+Lemmatization:
+['study', 'studying', 'cry', 'cry']
+
+
+Difference:
+
+Stemming:
+- Faster
+- Removes suffixes mechanically
+- May create invalid words
+
+Lemmatization:
+- More accurate
+- Produces meaningful dictionary words
+- Slower
+
+
+
+12. Stop Word Removal and TF-IDF Program
+----------------------------------------
+
+import nltk
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+nltk.download('stopwords')
+
+docA = 'Jupiter is the largest Planet'
+docB = 'Mars is the fourth planet from the Sun'
+
+documents = [docA.lower(), docB.lower()]
+
+stop_words = set(stopwords.words('english'))
+
+filtered_docs = []
+
+for doc in documents:
+    words = doc.split()
+    filtered = [word for word in words if word not in stop_words]
+    filtered_docs.append(" ".join(filtered))
+
+print(filtered_docs)
+
+vectorizer = TfidfVectorizer()
+
+tfidf_matrix = vectorizer.fit_transform(filtered_docs)
+
+print(vectorizer.get_feature_names_out())
+print(tfidf_matrix.toarray())
+
+
+Expected Output:
+
+After Stop Word Removal:
+['jupiter largest planet',
+ 'mars fourth planet sun']
+
+Feature Names:
+['fourth' 'jupiter' 'largest' 'mars' 'planet' 'sun']
+
+
+END OF NOTES

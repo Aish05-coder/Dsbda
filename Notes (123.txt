@@ -1,0 +1,373 @@
+
+DSBDA Viva & Practical Notes (Hinglish)
+======================================
+
+1. Data Wrangling Practical
+---------------------------
+Aim:
+To perform Data Wrangling operations using Python and Pandas on an open-source dataset.
+
+Dataset Used:
+Titanic Dataset
+Source:
+https://www.kaggle.com/datasets/yasserh/titanic-dataset
+
+Step 1: Import Libraries
+------------------------
+import pandas as pd
+import numpy as np
+
+Explanation:
+- Pandas is used for data analysis and handling.
+- NumPy is used for numerical operations.
+
+Step 2: Load Dataset
+--------------------
+data = pd.read_csv("Titanic-Dataset.csv")
+
+Explanation:
+- read_csv() reads CSV files and converts them into DataFrame.
+
+Step 3: Display Data
+--------------------
+print(data.head())
+
+Explanation:
+- head() displays first 5 rows of dataset.
+
+Step 4: Data Preprocessing
+--------------------------
+
+Check Missing Values:
+print(data.isnull().sum())
+
+describe() Function:
+print(data.describe())
+
+Check Data Types:
+print(data.dtypes)
+
+Check Dimensions:
+print(data.shape)
+
+Dataset Information:
+print(data.info())
+
+Step 5: Type Conversion
+-----------------------
+data['Age'] = data['Age'].fillna(0)
+data['Age'] = data['Age'].astype(int)
+
+Explanation:
+- fillna(0) replaces missing values.
+- astype(int) converts datatype.
+
+Step 6: Convert Categorical to Numerical
+----------------------------------------
+data['Sex'] = data['Sex'].map({
+    'male':0,
+    'female':1
+})
+
+Explanation:
+- Machine learning models understand numerical values better.
+
+------------------------------------------------------------
+
+2. Important Pandas Functions
+-----------------------------
+
+df = pd.read_csv("iris.csv")
+Explanation:
+Reads iris.csv dataset into DataFrame.
+
+df.head()
+Explanation:
+Displays first 5 rows.
+
+df.isnull().sum()
+Explanation:
+Shows count of missing values in each column.
+
+df.describe()
+Explanation:
+Displays statistical summary:
+- mean
+- std
+- min
+- max
+- quartiles
+
+df.info()
+Explanation:
+Displays:
+- column names
+- datatypes
+- non-null values
+- memory usage
+
+df.shape
+Explanation:
+Returns:
+(rows, columns)
+
+Example:
+(150, 5)
+
+astype(int)
+------------
+df['sepal.length'].astype(int)
+
+Explanation:
+Converts datatype into integer.
+
+Categorical Encoding
+--------------------
+df['variety'] = df['variety'].map({
+    'Setosa':0,
+    'Versicolor':1,
+    'Virginica':2
+})
+
+Explanation:
+Converts categorical values into numerical values.
+
+------------------------------------------------------------
+
+3. Outlier Detection
+--------------------
+
+Outlier:
+Extreme value different from normal data.
+
+Methods:
+1. IQR Method
+2. Z-Score Method
+3. Box Plot Method
+
+IQR Formula:
+IQR = Q3 - Q1
+
+Lower Limit:
+Q1 - 1.5(IQR)
+
+Upper Limit:
+Q3 + 1.5(IQR)
+
+Python Code:
+-------------
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+outliers = df[
+    (df['Marks'] < lower) |
+    (df['Marks'] > upper)
+]
+
+print(outliers)
+
+------------------------------------------------------------
+
+4. Data Transformation Methods
+------------------------------
+
+1. Normalization
+2. Standardization
+3. Log Transformation
+4. Encoding
+
+Normalization Formula:
+(X - Xmin) / (Xmax - Xmin)
+
+Standardization Formula:
+(X - mean) / standard deviation
+
+------------------------------------------------------------
+
+5. Algorithm to Display Null Values
+-----------------------------------
+
+Algorithm:
+1. Start
+2. Import pandas
+3. Load dataset
+4. Use isnull()
+5. Use sum()
+6. Display missing values
+7. Stop
+
+Code:
+-----
+import pandas as pd
+
+df = pd.read_csv("data.csv")
+
+print(df.isnull().sum())
+
+------------------------------------------------------------
+
+6. Algorithm to Replace Outliers with Mean
+------------------------------------------
+
+import pandas as pd
+import numpy as np
+
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+mean = df['Marks'].mean()
+
+df['Marks'] = np.where(
+    (df['Marks'] < lower) |
+    (df['Marks'] > upper),
+    mean,
+    df['Marks']
+)
+
+print(df)
+
+------------------------------------------------------------
+
+7. Data Preprocessing
+---------------------
+
+Definition:
+Raw data ko clean aur usable format me convert karna.
+
+Steps:
+1. Data Cleaning
+2. Data Integration
+3. Data Transformation
+4. Data Reduction
+
+Importance:
+- Better accuracy
+- Removes noise
+- Improves ML performance
+
+------------------------------------------------------------
+
+8. DataFrame
+------------
+
+Definition:
+2D tabular structure in pandas.
+
+Example:
+--------
+import pandas as pd
+
+data = {
+    'Name':['Ram','Shyam'],
+    'Marks':[80,90]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+------------------------------------------------------------
+
+9. Limitations of Label Encoding
+--------------------------------
+
+1. Creates false order/ranking
+2. Not suitable for nominal data
+
+Example:
+Red = 0
+Blue = 1
+Green = 2
+
+------------------------------------------------------------
+
+10. Need of Normalization
+-------------------------
+
+- Converts data into common scale
+- Improves ML accuracy
+- Faster convergence
+
+------------------------------------------------------------
+
+11. Handling Missing Data
+-------------------------
+
+1. Remove rows:
+df.dropna()
+
+2. Replace with mean:
+df['Marks'].fillna(df['Marks'].mean())
+
+3. Replace with median:
+df['Marks'].fillna(df['Marks'].median())
+
+4. Replace with mode:
+df['City'].fillna(df['City'].mode()[0])
+
+------------------------------------------------------------
+
+12. Statistics
+---------------
+
+Definition:
+Science of collecting, analyzing and interpreting data.
+
+Types:
+1. Descriptive Statistics
+2. Inferential Statistics
+
+------------------------------------------------------------
+
+13. Measures of Central Tendency
+--------------------------------
+
+1. Mean
+2. Median
+3. Mode
+
+Mean Formula:
+Sum of all observations / Total observations
+
+Mode:
+Most frequent value.
+
+------------------------------------------------------------
+
+14. Types of Variables
+----------------------
+
+1. Numerical Variables
+2. Categorical Variables
+3. Continuous Variables
+4. Discrete Variables
+
+------------------------------------------------------------
+
+15. Display Statistics of DataFrame
+-----------------------------------
+
+Method:
+df.describe()
+
+Code:
+-----
+import pandas as pd
+
+df = pd.read_csv("iris.csv")
+
+print(df.describe())
+
+============================================================
+End of Notes
+============================================================

@@ -1,0 +1,278 @@
+
+Python Data Analysis and Visualization Notes
+===========================================
+
+1. Loading Titanic Dataset
+--------------------------
+import seaborn as sns
+df = sns.load_dataset('titanic')
+
+Purpose:
+- Loads Titanic dataset into a pandas DataFrame.
+
+Useful functions:
+df.head()
+df.info()
+df.describe()
+df.isnull().sum()
+
+------------------------------------------------------------
+
+2. Heatmap
+----------
+sns.heatmap(df.corr(numeric_only=True), annot=True)
+
+Purpose:
+- Shows correlation between numerical columns.
+
+Important:
+- Correlation range: -1 to +1
+- annot=True displays correlation values.
+
+------------------------------------------------------------
+
+3. Countplot
+------------
+sns.countplot(x='survived', data=df, hue='sex')
+
+Purpose:
+- Counts survivors and non-survivors based on gender.
+
+------------------------------------------------------------
+
+4. Boxplot
+----------
+sns.boxplot(y='fare', x='survived', data=df)
+
+Purpose:
+- Compares fare distribution between survivors and non-survivors.
+
+Boxplot Components:
+- Median
+- Quartiles
+- Whiskers
+- Outliers
+
+------------------------------------------------------------
+
+5. Histogram
+-------------
+sns.histplot(df['fare'], kde=True)
+
+Purpose:
+- Shows fare distribution.
+- KDE curve displays smooth density.
+
+------------------------------------------------------------
+
+6. Boxplot with Hue
+-------------------
+sns.boxplot(x='sex', y='age', data=df, hue='survived')
+
+Purpose:
+- Compares age distribution by gender and survival.
+
+------------------------------------------------------------
+
+7. Importing Matplotlib
+-----------------------
+import matplotlib.pyplot as plt
+
+Purpose:
+- Used for plotting graphs and customizing visualizations.
+
+------------------------------------------------------------
+
+8. Histograms for Iris Dataset
+------------------------------
+cols = ['sepal.length', 'sepal.width',
+        'petal.length', 'petal.width']
+
+plt.figure(figsize=(10,8))
+
+plt.subplot(2,2,1)
+sns.histplot(data=df, x=cols[0], kde=True)
+
+plt.subplot(2,2,2)
+sns.histplot(data=df, x=cols[1], kde=True)
+
+plt.subplot(2,2,3)
+sns.histplot(data=df, x=cols[2], kde=True)
+
+plt.subplot(2,2,4)
+sns.histplot(data=df, x=cols[3], kde=True)
+
+Purpose:
+- Creates 4 histograms for iris features.
+
+------------------------------------------------------------
+
+9. Boxplots for Iris Dataset
+----------------------------
+plt.figure(figsize=(10,8))
+
+plt.subplot(2,2,1)
+sns.boxplot(data=df, y=cols[0])
+
+plt.subplot(2,2,2)
+sns.boxplot(data=df, y=cols[1])
+
+plt.subplot(2,2,3)
+sns.boxplot(data=df, y=cols[2])
+
+plt.subplot(2,2,4)
+sns.boxplot(data=df, y=cols[3])
+
+Purpose:
+- Detects outliers and spread in iris dataset.
+
+------------------------------------------------------------
+
+10. IQR and Outlier Detection
+-----------------------------
+q1 = df['sepal.width'].quantile(0.25)
+q3 = df['sepal.width'].quantile(0.75)
+
+iqr = q3 - q1
+
+lower = q1 - 1.5 * iqr
+upper = q3 + 1.5 * iqr
+
+Purpose:
+- Detects outliers using IQR method.
+
+Formula:
+IQR = Q3 - Q1
+
+------------------------------------------------------------
+
+11. Outliers
+------------
+Definition:
+- Values very different from the rest of the dataset.
+
+Example:
+[10, 12, 15, 100]
+
+100 is an outlier.
+
+Effects:
+- Distorts graphs
+- Affects mean
+- Reduces ML accuracy
+
+------------------------------------------------------------
+
+12. Types of Plots
+------------------
+- Histogram
+- Boxplot
+- Scatterplot
+- Lineplot
+- Heatmap
+- Pairplot
+- Barplot
+- Countplot
+- KDE plot
+
+------------------------------------------------------------
+
+13. Distribution vs Categorical Plots
+-------------------------------------
+
+Distribution Plots:
+- Used for numerical data distribution.
+Examples:
+- Histogram
+- KDE Plot
+
+Categorical Plots:
+- Used to compare categories.
+Examples:
+- Countplot
+- Barplot
+- Boxplot
+
+------------------------------------------------------------
+
+14. Exploratory Data Analysis (EDA)
+-----------------------------------
+Definition:
+- Process of understanding and cleaning data before modeling.
+
+Common Operations:
+df.head()
+df.info()
+df.describe()
+df.isnull().sum()
+
+------------------------------------------------------------
+
+15. Univariate Analysis
+-----------------------
+Definition:
+- Analysis of one variable at a time.
+
+Example:
+sns.histplot(df['age'])
+
+------------------------------------------------------------
+
+16. Multivariate Analysis
+-------------------------
+Definition:
+- Analysis of multiple variables together.
+
+Example:
+sns.scatterplot(x='sepal.length',
+                y='petal.length',
+                hue='variety',
+                data=df)
+
+------------------------------------------------------------
+
+17. Distplot and Boxplot
+------------------------
+
+Distplot:
+sns.histplot(df['sepal.length'], kde=True)
+
+Boxplot:
+sns.boxplot(y=df['sepal.width'])
+
+------------------------------------------------------------
+
+18. Iris Dataset Features
+-------------------------
+1. sepal.length  -> Numerical
+2. sepal.width   -> Numerical
+3. petal.length  -> Numerical
+4. petal.width   -> Numerical
+5. variety       -> Categorical
+
+Flower Types:
+- Setosa
+- Versicolor
+- Virginica
+
+------------------------------------------------------------
+
+19. Skewness
+------------
+Definition:
+- Measures asymmetry of data distribution.
+
+Types:
+1. Positive Skew
+2. Negative Skew
+3. Symmetric Distribution
+
+Python:
+df['fare'].skew()
+
+Interpretation:
+> 0  -> Positive skew
+< 0  -> Negative skew
+≈ 0  -> Symmetric
+
+------------------------------------------------------------

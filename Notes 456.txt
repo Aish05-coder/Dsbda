@@ -1,0 +1,244 @@
+
+1. IMPORT STATEMENTS FOR LOGISTIC REGRESSION
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report,confusion_matrix,accuracy_score
+
+Explanation:
+- pandas: Used for data handling and analysis.
+- train_test_split: Splits data into training and testing sets.
+- LogisticRegression: Machine learning classification algorithm.
+- classification_report: Displays precision, recall, f1-score.
+- confusion_matrix: Shows prediction performance.
+- accuracy_score: Calculates accuracy of model.
+
+------------------------------------------------------------
+
+2. FEATURE AND TARGET SEPARATION
+
+X=df.drop('Purchased',axis=1)
+y=df['Purchased']
+
+Explanation:
+- X contains independent variables/features.
+- y contains dependent variable/target.
+- axis=1 indicates column operation.
+
+------------------------------------------------------------
+
+3. TRAIN TEST SPLIT
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+Explanation:
+- Splits dataset into training and testing data.
+- test_size=0.2 means:
+  80% training data
+  20% testing data
+- random_state=42 ensures same split every time.
+
+------------------------------------------------------------
+
+4. CLASSIFICATION REPORT
+
+print(classification_report(y_test,y_pred))
+
+Explanation:
+Displays:
+- Precision
+- Recall
+- F1-score
+- Support
+
+Precision Formula:
+Precision = TP / (TP + FP)
+
+Recall Formula:
+Recall = TP / (TP + FN)
+
+F1 Score Formula:
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+
+------------------------------------------------------------
+
+5. CONFUSION MATRIX
+
+print(confusion_matrix(y_test,y_pred))
+
+#TN,FP
+#FN,TP
+
+Structure:
+[[TN FP]
+ [FN TP]]
+
+Definitions:
+TN = True Negative
+FP = False Positive
+FN = False Negative
+TP = True Positive
+
+Accuracy Formula:
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+------------------------------------------------------------
+
+6. ACCURACY SCORE
+
+print(accuracy_score(y_test,y_pred))
+
+Explanation:
+Calculates percentage of correct predictions.
+
+Formula:
+Accuracy = Correct Predictions / Total Predictions
+
+------------------------------------------------------------
+
+7. ERROR RATE
+
+error_rate=1-accuracy_score(y_test,y_pred)
+print(error_rate)
+
+Explanation:
+Calculates percentage of incorrect predictions.
+
+Formula:
+Error Rate = 1 - Accuracy
+
+------------------------------------------------------------
+
+8. GAUSSIAN NAIVE BAYES
+
+model = GaussianNB()
+
+Explanation:
+- Gaussian Naive Bayes classification algorithm.
+- Based on Bayes theorem.
+- Assumes features are independent and normally distributed.
+
+Bayes Theorem:
+P(A|B) = (P(B|A) * P(A)) / P(B)
+
+------------------------------------------------------------
+
+9. LINEAR REGRESSION
+
+Definition:
+Linear Regression is a supervised learning algorithm used for predicting continuous numerical values.
+
+Equation:
+y = mx + c
+
+Machine Learning Equation:
+Y = β0 + β1X + ε
+
+Types:
+1. Simple Linear Regression
+2. Multiple Linear Regression
+
+Advantages:
+- Simple
+- Fast
+- Easy interpretation
+
+Disadvantages:
+- Sensitive to outliers
+- Works only for linear data
+
+------------------------------------------------------------
+
+10. DIFFERENCE BETWEEN LINEAR AND LOGISTIC REGRESSION
+
+Linear Regression:
+- Predicts numerical values
+- Output is continuous
+- Used for regression problems
+
+Logistic Regression:
+- Predicts categories/classes
+- Output between 0 and 1
+- Used for classification problems
+
+Logistic Formula:
+P(y)=1/(1+e^-x)
+
+------------------------------------------------------------
+
+11. STATISTICS
+
+Definition:
+Statistics is the branch of mathematics used for collecting, organizing, analyzing and interpreting data.
+
+Types:
+1. Descriptive Statistics
+2. Inferential Statistics
+
+Applications:
+- Data Science
+- Machine Learning
+- Business Analysis
+
+------------------------------------------------------------
+
+12. MEASURES OF CENTRAL TENDENCY
+
+A) Mean
+Formula:
+Mean = Sum of observations / Number of observations
+
+Example:
+2,4,6,8
+Mean = 5
+
+B) Median
+Middle value after arranging data.
+
+C) Mode
+Most frequently occurring value.
+
+------------------------------------------------------------
+
+13. TYPES OF VARIABLES
+
+1. Independent Variable
+Example: Age, Salary
+
+2. Dependent Variable
+Example: Purchased
+
+3. Qualitative Variables
+- Nominal
+- Ordinal
+
+4. Quantitative Variables
+- Discrete
+- Continuous
+
+------------------------------------------------------------
+
+14. DESCRIBE METHOD
+
+Code:
+df.describe()
+
+Explanation:
+Displays:
+- count
+- mean
+- std
+- min
+- max
+- quartiles
+
+Example:
+import pandas as pd
+
+df = pd.read_csv("data.csv")
+print(df.describe())
+
+------------------------------------------------------------
