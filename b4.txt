@@ -1,0 +1,63 @@
+// Simple Apache Spark Program in Scala
+// Word Count Example
+
+import org.apache.spark.sql.SparkSession
+
+object WordCount {
+
+  def main(args: Array[String]): Unit = {
+
+    // Create Spark Session
+    val spark = SparkSession.builder()
+      .appName("Word Count Program")
+      .master("local[*]")
+      .getOrCreate()
+
+    // Read input text file
+    val textFile = spark.sparkContext.textFile("input.txt")
+
+    // Split words and count occurrences
+    val wordCounts = textFile
+      .flatMap(line => line.split(" "))
+      .map(word => (word, 1))
+      .reduceByKey(_ + _)
+
+    // Display output
+    wordCounts.collect().foreach(println)
+
+    // Stop Spark session
+    spark.stop()
+  }
+}
+
+
+
+
+
+Sample Input File (input.txt)
+Hello Spark
+Hello Hadoop
+Spark is fast
+Expected Output
+(Hello,2)
+(Spark,2)
+(Hadoop,1)
+(is,1)
+(fast,1)
+Explanation
+Function	Purpose
+flatMap()	Splits lines into words
+map()	Creates key-value pairs
+reduceByKey()	Counts occurrences
+collect()	Retrieves result
+Steps to Run
+1. Save file as
+WordCount.scala
+2. Compile
+scalac WordCount.scala
+3. Run using Spark
+spark-submit --class WordCount WordCount.jar
+Required Software
+Apache Spark
+Scala
+Java JDK
